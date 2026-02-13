@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Babe 💖 From Dodong</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #ff758c, #ff7eb3);
+    overflow: hidden;
+    color: white;
+    /* This centers the container vertically and horizontally */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; 
+    margin: 0;
+}
+
+.container {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 40px 30px;
+    max-width: 400px;
+    width: 90%; /* Responsive width for mobile */
+    
+    /* ✨ Glassmorphism Effect */
+    background: rgba(255, 255, 255, 0.1); /* Transparent white */
+    backdrop-filter: blur(1px);          /* Blurs the background behind it */
+    -webkit-backdrop-filter: blur(10px);   /* Safari support */
+    border-radius: 25px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
+ 
+}
+
+h1{
+    font-size:2rem;
+    margin-bottom:15px;
+}
+
+p{
+    margin-bottom:20px;
+}
+
+.buttons {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    /* This gives the button a 150px tall 'playground' inside the glass */
+    height: 150px; 
+    margin-top: 20px;
+    width: 100%;
+}
+
+button {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 30px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.3s;
+    z-index: 3;             /* Ensure they stay above the glass */
+}
+
+.yes{
+    background:#ff2e63;
+    color:white;
+}
+
+.no {
+    background: white;
+    color: #ff2e63;
+    /* Start as relative to sit next to 'Yes', JS will change this */
+    position: relative; 
+    transition: 0.2s ease;
+    z-index: 10;
+}
+
+/* 💖 Floating Hearts */
+.heart {
+    position: fixed; /* Changed from absolute */
+    top: 0;          /* Anchors the starting point to the top of the screen */
+    font-size: 20px;
+    animation: floatUp linear forwards;
+    z-index: 0;
+    pointer-events: none;
+}
+
+@keyframes floatUp{
+    0%{
+        transform:translateY(110vh) scale(0.6);
+        opacity:0;
+    }
+    20%{
+        opacity:0.8;
+    }
+    80%{
+        opacity:0.8;
+    }
+    100%{
+        transform:translateY(-20vh) scale(1);
+        opacity:0;
+    }
+}
+
+.your-container-class {
+    padding-top: 0;
+    margin-top: 0;
+}
+
+img {
+    display: block;
+    width: 100%; /* If you want it to span the full width */
+    height: auto;
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
+}
+
+/* 📸 Floating Photos */
+.floating-photo {
+    position: fixed; /* Changed from absolute */
+    top: 0;          /* Anchors the starting point to the top of the screen */
+    width: 130px;
+    border-radius: 18px;
+    animation: floatPhoto linear forwards;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+
+@keyframes floatPhoto{
+    0%{
+        transform:translateY(110vh) rotate(-8deg) scale(0.9);
+        /* opacity removed */
+    }
+    100%{
+        transform:translateY(-25vh) rotate(8deg) scale(1);
+        /* opacity removed */
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>Hi Babe 💕</h1>
+
+    <p>
+        From your Dodong 🥹💞<br><br>
+        Every moment with you feels magical.<br>
+        Will you be my Valentine, Babe? 💘
+    </p>
+
+    <div class="buttons">
+        <button class="yes" onclick="sayYes()">Yes 💖</button>
+        <button class="no" id="noBtn" onclick="moveNo()">No 😜</button>
+    </div>
+</div>
+
+<script>
+const noBtn = document.getElementById("noBtn");
+
+/* 🏃 Moving No Button */
+function moveNo() {
+    const container = document.querySelector(".buttons");
+    
+    // Switch to absolute so it can move freely inside the container
+    noBtn.style.position = "absolute";
+
+    // Calculate the boundaries of the buttons div
+    const maxX = container.clientWidth - noBtn.offsetWidth;
+    const maxY = container.clientHeight - noBtn.offsetHeight;
+
+    // Generate random positions within those bounds
+    const randomX = Math.floor(Math.random() * maxX);
+    const randomY = Math.floor(Math.random() * maxY);
+
+    // Apply the new coordinates
+    noBtn.style.left = randomX + "px";
+    noBtn.style.top = randomY + "px";
+}
+
+/* 💕 YES CLICK */
+function sayYes(){
+    document.querySelector("h1").innerText = "YAY Babe!!! 💖✨";
+    document.querySelector("p").innerHTML = `
+        Dodong is the happiest man alive right now 🥹💞<br><br>
+        I love you so much Babe 💐💕
+    `;
+    document.querySelector(".buttons").style.display="none";
+}
+
+/* 💖 Floating Hearts Generator */
+function createHeart(){
+    const heart=document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerText="💖";
+    heart.style.left=Math.random()*100+"vw";
+    const duration=Math.random()*6+8;
+    heart.style.animationDuration=duration+"s";
+    document.body.appendChild(heart);
+
+    setTimeout(()=>{heart.remove();},duration*1000);
+}
+setInterval(createHeart,1200);
+
+/* 📸 Floating Photos Generator (pic1.jpg to pic31.jpg) */
+const photos=[];
+for(let i=1;i<=31;i++){
+    photos.push(`pic${i}.jpg`);
+}
+
+let activePhotos=0;
+const MAX_PHOTOS=6;
+let lastX=0;
+
+function createPhoto(){
+
+    if(activePhotos>=MAX_PHOTOS) return;
+
+    const img=document.createElement("img");
+    img.src=photos[Math.floor(Math.random()*photos.length)];
+    img.classList.add("floating-photo");
+
+    let x;
+    do{
+        x=Math.random()*90;
+    }while(Math.abs(x-lastX)<15);
+    lastX=x;
+
+    img.style.left=x+"vw";
+
+    const duration=Math.random()*8+14;
+    img.style.animationDuration=duration+"s";
+
+    document.body.appendChild(img);
+    activePhotos++;
+
+    setTimeout(()=>{
+        img.remove();
+        activePhotos--;
+    },duration*1000);
+}
+
+setInterval(createPhoto,3500);
+
+</script>
+
+</body>
+</html>
